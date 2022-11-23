@@ -1,0 +1,40 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`matches the snapshot 1`] = `
+<div
+  className="App"
+>
+  <header />
+  <nav
+    className="navbar nav content"
+  >
+    <div>
+      <i
+        className="fab fa-brands fa-4x fa-hacker-news"
+      />
+    </div>
+    <div>
+      <a
+        className="navbar-brand nav-heading"
+        href="#"
+      >
+        <h1>
+          Hacker News
+        </h1>
+      </a>
+    </div>
+  </nav>
+  <h1>
+    My Articles
+  </h1>
+  <div>
+    <div>
+      <p
+        data-testid="loading"
+      >
+        Loading
+      </p>
+    </div>
+  </div>
+</div>
+`;

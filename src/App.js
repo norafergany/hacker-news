@@ -1,5 +1,4 @@
-import logo from './logo.svg';
-import './App.css';
+import "./App.css";
 import NavBar from "./components/NavBar";
 import React from "react";
 import ArticleList from "./components/ArticleList";
@@ -10,7 +9,8 @@ function App() {
       <header>
       </header>
         <NavBar/>
-        <ArticleList/>
+        <h1>My Articles</h1>
+        <ArticleList urlParams="topstories"/>
     </div>
   );
 }

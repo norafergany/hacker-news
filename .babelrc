@@ -1,7 +1,11 @@
 {
+
   "env": {
+
     "test": {
-      "plugins": ["@babel/plugin-transform-modules-commonjs"]
+      "plugins": ["@babel/plugin-transform-modules-commonjs", "css-modules-transform"],
+      "presets": ["@babel/preset-react"]
+
     }
   }
 }
