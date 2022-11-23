@@ -3,6 +3,7 @@ import useGetIds from '../common/getIds.js'
 import useGetStories from "../common/getStories";
 
 //TODO rename this as ArticleList with parameters NEW or TOP
+// TODO put async code inside this component
 function ArticleList() {
 
     const params = 'topstories';

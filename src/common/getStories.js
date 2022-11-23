@@ -18,11 +18,13 @@ const useGetStories = (urlParams) => {
                 let storyList = [];
                 const fullIdList = await axios.get(baseStoriesURL + urlParams + '.json');
                 const idSet = fullIdList.data.slice(1, 13);
+                console.log(idSet);
 
                 await Promise.all(idSet.map((id) => axios.get(baseItemURL + id + '.json')
                     .then((story) => storyList.push(story.data))));
 
                 setStories(storyList);
+                console.log(storyList);
 
             } catch (error) {
                 console.error(error);
