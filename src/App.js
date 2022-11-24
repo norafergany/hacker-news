@@ -1,5 +1,8 @@
 import React, {Component} from "react";
 import axios from "axios";
+import {ThemeProvider} from "styled-components";
+import { GlobalStyles } from "./components/GlobalStyles";
+import { lightTheme, darkTheme } from "./components/Themes"
 import "./App.css";
 import NavBar from "./components/NavBar";
 import ArticleList from "./components/ArticleList";
@@ -12,17 +15,23 @@ export default class App extends Component {
         this.state = {
             ids: [],
             currentIds: [],
-            currentStories: [],
             storyType: 'topstories',
             loading: true,
             start: 0,
             end: 13,
+            theme:'light'
         }
         this.getIds = this.getIds.bind(this);
         this.getCurrentIds = this.getCurrentIds.bind(this);
 
     }
 
+
+    // toggleTheme() {
+    //
+    //     this.state.theme === 'light' ?
+    //
+    // }
 
     async getIds(storyType) {
         const baseURL = "https://hacker-news.firebaseio.com/v0/";
@@ -39,7 +48,10 @@ export default class App extends Component {
             console.error(error);
         }
 
+    }
 
+    updateCurrentIds(newIds) {
+        this.setState({currentIds:newIds});
     }
 
 
@@ -66,14 +78,18 @@ export default class App extends Component {
 
         return (
             <>
-                <NavBar/>
+                <ThemeProvider theme={this.state.theme === 'light' ? lightTheme : darkTheme}>
+                    <GlobalStyles/>
+
+                    <NavBar/>
                 <div className="content">
 
                     {!this.state.loading &&
 
-                        <ArticleList ids={this.state.currentIds}/>
+                        <ArticleList ids={this.state.currentIds} onUpdate={this.updateCurrentIds}/>
                     }
                 </div>
+                </ThemeProvider>
 
             </>
 

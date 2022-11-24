@@ -15,12 +15,16 @@ export default class Article extends Component {
     async getArticle(id) {
         const baseURL = "https://hacker-news.firebaseio.com/v0/item/";
         try {
-            const {data} = await axios.get(`${baseURL}${id}.json`);
+            const { data } = await axios.get(`${baseURL}${id}.json`);
             this.setState({
                 title: data.title
             }, function () {
                 console.log(data.title);
+                return data;
+
             })
+
+
 
 
         } catch (error) {
@@ -38,8 +42,11 @@ export default class Article extends Component {
 
         return (
             <div>
-                {this.state.title}
+                <li >
+                        {this.state.title} {this.props.id}
+                </li>
             </div>
+
 
         )
     }
