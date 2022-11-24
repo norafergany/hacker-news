@@ -1,29 +1,38 @@
 // import axios from "axios";
 // import {React, useEffect, useState} from "react";
-// import useGetIds from "./getIds";
+// const defaultValues = {};
 //
-// const useGetStories = (urlParams) => {
-//     const [ids, setData] = useState({});
-//     const [stories, setStories] = useState({});
+// const useGetStories = (idList) => {
+//
+//     const [stories, setStories] = useState([]);
 //     const [loading, setLoading] = useState(true);
 //
-//     const baseStoriesURL = "https://hacker-news.firebaseio.com/v0/";
+//
 //     const baseItemURL = "https://hacker-news.firebaseio.com/v0/item/";
+// // only need to call id endpoint once, then keep calling story id
 //
 //
 //     useEffect(() => {
 //
+//
 //         const fetchData = async () => {
 //             try {
+//                 // const fullIdList = await axios.get(baseStoriesURL + urlParams + '.json');
+//                 // const idSet = idList.slice(start, end);
+//                 // console.log(idSet);
 //                 let storyList = [];
-//                 const fullIdList = await axios.get(baseStoriesURL + urlParams + '.json');
-//                 const idSet = fullIdList.data.slice(1, 13);
-//                 console.log(idSet);
+//                 console.log(idList);
+//                 // const urls = idList.map((id)=> axios.get(baseItemURL + id + '.json'));
+//                 await Promise.all(idList.map((id) => axios.get(baseItemURL + id + '.json')))
+//                     .then((res) => setStories(res.map((res) => res.data)));
 //
-//                 await Promise.all(idSet.map((id) => axios.get(baseItemURL + id + '.json')
-//                     .then((story) => storyList.push(story.data))));
+//                 // await Promise.all(idList.map((id) => axios.get(baseItemURL + id + '.json')
+//                 //     .then((story) => storyList.push(story.data))))
+//                 //     .then(story => setStories(story))
+//                 //
+//                 // ;
 //
-//                 setStories(storyList);
+//                 // setStories(storyList);
 //                 console.log(storyList);
 //
 //             } catch (error) {
@@ -34,11 +43,12 @@
 //
 //         fetchData()
 //
-//     }, [urlParams]);
+//     }, [idList]);
 //
 //     return {
 //         stories,
 //         loading,
+//
 //     };
 // };
 //
