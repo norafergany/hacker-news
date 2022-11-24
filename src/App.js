@@ -1,8 +1,8 @@
 import React, {Component} from "react";
+import axios from "axios";
 import "./App.css";
 import NavBar from "./components/NavBar";
 import ArticleList from "./components/ArticleList";
-import axios from "axios";
 
 
 export default class App extends Component {
@@ -10,13 +10,13 @@ export default class App extends Component {
     constructor(props) {
         super(props);
         this.state = {
-            ids:[],
-            currentIds:[],
-            currentStories:[],
-            storyType:'topstories',
-            loading:true,
-            start:0,
-            end:13,
+            ids: [],
+            currentIds: [],
+            currentStories: [],
+            storyType: 'topstories',
+            loading: true,
+            start: 0,
+            end: 13,
         }
         this.getIds = this.getIds.bind(this);
         this.getCurrentIds = this.getCurrentIds.bind(this);
@@ -29,13 +29,12 @@ export default class App extends Component {
         const endpoint = `${baseURL}${storyType}.json`;
 
         try {
-            const response = await axios.get(endpoint);
-            this.setState({ids:response.data}, function() {
-                const currentIds = this.getCurrentIds(this.state.ids, this.state.start, this.state.end);
-                // this.getProm(currentIds);
+            const {data} = await axios.get(endpoint);
+            this.setState({ids: data}, function () {
+                this.getCurrentIds(this.state.ids, this.state.start, this.state.end);
 
             })
-            console.log(response);
+            console.log(data);
         } catch (error) {
             console.error(error);
         }
@@ -44,15 +43,11 @@ export default class App extends Component {
     }
 
 
-
-
-
-
-    getCurrentIds(ids, start, end){
+    getCurrentIds(ids, start, end) {
         const currentSlice = this.state.ids.slice(start, end);
         console.log(currentSlice);
-        this.setState({currentIds:currentSlice}, function() {
-            this.setState({loading:false})
+        this.setState({currentIds: currentSlice}, function () {
+            this.setState({loading: false})
 
             return currentSlice;
         });
@@ -68,28 +63,23 @@ export default class App extends Component {
 
 
     render() {
-        let loadingMessage = <div>Loading...</div>;
 
         return (
-           <>
-               <NavBar />
-                   <div className="content">
+            <>
+                <NavBar/>
+                <div className="content">
 
+                    {!this.state.loading &&
 
+                        <ArticleList ids={this.state.currentIds}/>
+                    }
+                </div>
 
-               {/*{this.state.loading && loadingMessage}*/}
+            </>
 
-               {!this.state.loading &&
+        );
 
-                   <ArticleList ids={this.state.currentIds} />
-               }
-                   </div>
-
-           </>
-
-       );
-
-   }
+    }
 
 
 }

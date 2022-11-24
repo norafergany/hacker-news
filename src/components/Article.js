@@ -1,15 +1,14 @@
 import React, {Component} from "react";
 import axios from "axios";
 
-export default class Article extends React.Component {
+export default class Article extends Component {
     constructor(props) {
         super(props);
 
         this.state = {
-            title:null
+            title: null
         }
         this.getArticle = this.getArticle.bind(this);
-
 
     }
 
@@ -18,13 +17,13 @@ export default class Article extends React.Component {
         try {
             const {data} = await axios.get(`${baseURL}${id}.json`);
             this.setState({
-                title:data.title
-            }, function() {
+                title: data.title
+            }, function () {
                 console.log(data.title);
             })
 
 
-        } catch(error) {
+        } catch (error) {
             console.error(error);
         }
     }
@@ -36,7 +35,6 @@ export default class Article extends React.Component {
 
 
     render() {
-
 
         return (
             <div>
