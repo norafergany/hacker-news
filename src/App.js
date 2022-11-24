@@ -1,81 +1,96 @@
+import React, {Component} from "react";
 import "./App.css";
 import NavBar from "./components/NavBar";
-import React, {useState} from "react";
 import ArticleList from "./components/ArticleList";
-import useGetIds from "./common/getIds";
-import useGetStories from "./common/getStories";
+import axios from "axios";
 
-function App() {
 
-    // const [more, setMore] = useState(true);
-    //
-    // const [start, setStart] = useState(0);
-    // const [end, setEnd] = useState(13);
-    //
-    // // const[currentIds, setCurrentIds] = useState([]);
-    //
-    // //TODO set state of current ids here ?
-    // /*
-    // make 1 axios call and continually slice array?
-    // or make multiple axios calls?
-    // dashboard that defines current items?
-    // pager to go above and
-    // parent component pager that defines ids that getstories should call on and passes them down as props
-    //  */
-    //
-    // if (end > 501) {
-    //     setEnd(501-start);
-    //     setMore(false);
-    // }
-    //
-    // const params = "topstories";
-    // const {ids, idLoading} = useGetIds(params);
-    // console.log(ids);
-    // let currIds = ids.slice(start, end);
-    // // setCurrentIds(currIds);
-    // console.log(currIds);
-    // console.log(start);
-    // console.log(end);
-    // // console.log(typeof(currentIds));
-    // // // const currentIds = ids.slice(start, end);
-    // // console.log(currentIds);
-    //
-    // //
-    // //
-    // const {stories, loading} = useGetStories(currIds);
-    //
-    // // let me = stories[0];
-    // // console.log(me);
-    // // // console.log(stories[0].title);
-    // console.log(stories);
+export default class App extends Component {
 
-    // Get the full list of ids from getids
-    // slice the list
-    // call getstories on the slicedlist
+    constructor(props) {
+        super(props);
+        this.state = {
+            ids:[],
+            currentIds:[],
+            currentStories:[],
+            storyType:'topstories',
+            loading:true,
+            start:0,
+            end:13,
+        }
+        this.getIds = this.getIds.bind(this);
+        this.getCurrentIds = this.getCurrentIds.bind(this);
 
-    //TODO  return objects or arrays?
-    // const {ids, idLoading} = useGetIds(props.urlParams);
-    // const currentIds = ids.slice(start, end);
+    }
 
-    //
-    // let myStories = stories;
-    // const getHostnameFromRegex = (url) => {
-    //     // run against regex
-    //     const matches = url.match(/^https?\:\/\/([^\/?#]+)(?:[\/?#]|$)/i);
-    //     // extract hostname (will be null if no match is found)
-    //     return matches && matches[1];
-    // }
 
-  return (
-    <div className="App">
-      <header>
-      </header>
-        <NavBar/>
-        {/*<ArticleList idLoading={idLoading} more={more} start={start} loading={loading} stories={stories} end={end} ids={currIds}/>*/}
-        <ArticleList />
-        {/*<ArticleList loading={loading} idLoading={idLoading} stories={myStories} more={more} start={start} end={end}/>*/}
-    </div>
-  );
+    async getIds(storyType) {
+        const baseURL = "https://hacker-news.firebaseio.com/v0/";
+        const endpoint = `${baseURL}${storyType}.json`;
+
+        try {
+            const response = await axios.get(endpoint);
+            this.setState({ids:response.data}, function() {
+                const currentIds = this.getCurrentIds(this.state.ids, this.state.start, this.state.end);
+                // this.getProm(currentIds);
+
+            })
+            console.log(response);
+        } catch (error) {
+            console.error(error);
+        }
+
+
+    }
+
+
+
+
+
+
+    getCurrentIds(ids, start, end){
+        const currentSlice = this.state.ids.slice(start, end);
+        console.log(currentSlice);
+        this.setState({currentIds:currentSlice}, function() {
+            this.setState({loading:false})
+
+            return currentSlice;
+        });
+
+
+    }
+
+
+    componentDidMount() {
+        const allIds = this.getIds(this.state.storyType);
+        this.getCurrentIds(allIds);
+    }
+
+
+    render() {
+        let loadingMessage = <div>Loading...</div>;
+
+        return (
+           <>
+               <NavBar />
+                   <div className="content">
+
+
+
+               {/*{this.state.loading && loadingMessage}*/}
+
+               {!this.state.loading &&
+
+                   <ArticleList ids={this.state.currentIds} />
+               }
+                   </div>
+
+           </>
+
+       );
+
+   }
+
+
 }
 
-export default App;

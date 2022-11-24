@@ -7,11 +7,7 @@
     "@testing-library/user-event": "^13.5.0",
     "axios": "^1.2.0",
     "bootstrap": "^5.2.2",
-    "jest-environment-jsdom": "^29.3.1",
-    "jest-transform-stub": "^2.0.0",
-    "psl": "^1.9.0",
     "react": "^18.2.0",
-    "react-bootstrap": "^2.6.0",
     "react-dom": "^18.2.0",
     "react-scripts": "5.0.1",
     "web-vitals": "^2.1.4"
@@ -19,7 +15,7 @@
   "scripts": {
     "start": "react-scripts start",
     "build": "react-scripts build",
-    "test": "jest --env=jsdom",
+    "test": "jest",
     "eject": "react-scripts eject"
   },
   "jest": {
