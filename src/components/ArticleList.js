@@ -8,7 +8,7 @@ export default class ArticleList extends Component {
 
         return (
             <>
-                <div className="story-list">
+                <div className="story-list ">
                     <ol>
                         {this.props.ids.map((id) => <Article key={id} id={id}/>)}
                     </ol>

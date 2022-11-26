@@ -23,15 +23,35 @@ export default class App extends Component {
         }
         this.getIds = this.getIds.bind(this);
         this.getCurrentIds = this.getCurrentIds.bind(this);
+        this.toggleTheme = this.toggleTheme.bind(this);
+        this.getInitialTheme = this.getInitialTheme.bind(this);
+
 
     }
 
 
-    // toggleTheme() {
-    //
-    //     this.state.theme === 'light' ?
-    //
-    // }
+    toggleTheme() {
+
+        if (this.state.theme === 'light') {
+            this.setState({theme: 'dark'});
+
+        } else {
+            this.setState({theme: 'light'});
+        }
+        localStorage.setItem('theme', this.state.theme);
+
+
+    }
+
+    getInitialTheme() {
+        const storedTheme = localStorage.getItem('theme') || (window.matchMedia("(prefers-color-scheme: dark)").matches ? "dark" : "light");
+        if (storedTheme) {
+            this.setState({theme: storedTheme});
+            localStorage.setItem('theme', storedTheme);
+            document.body.classList.add(storedTheme);
+
+        }
+    }
 
     async getIds(storyType) {
         const baseURL = "https://hacker-news.firebaseio.com/v0/";
@@ -71,6 +91,7 @@ export default class App extends Component {
     componentDidMount() {
         const allIds = this.getIds(this.state.storyType);
         this.getCurrentIds(allIds);
+        this.getInitialTheme();
     }
 
 
@@ -78,19 +99,18 @@ export default class App extends Component {
 
         return (
             <>
-                <ThemeProvider theme={this.state.theme === 'light' ? lightTheme : darkTheme}>
-                    <GlobalStyles/>
+                <div  theme={this.state.theme} data-theme={`${this.state.theme === 'dark' ? "dark" : "light"}`} className={`container`} >
 
-                    <NavBar/>
-                <div className="content">
+                    <NavBar theme={this.state.theme} toggleTheme={this.state.toggleTheme} handleClick={this.toggleTheme}/>
+                <div className="content" data-theme={`${this.state.theme === 'dark' ? "dark" : "light"}`}>
 
                     {!this.state.loading &&
 
                         <ArticleList ids={this.state.currentIds} onUpdate={this.updateCurrentIds}/>
                     }
                 </div>
-                </ThemeProvider>
 
+                </div>
             </>
 
         );
