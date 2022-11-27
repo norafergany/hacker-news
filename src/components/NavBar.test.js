@@ -5,7 +5,8 @@ import renderer from 'react-test-renderer';
 import NavBar from "./NavBar";
 
 test('displays the Hacker News Nav', () => {
-    render(<NavBar/>);
+    const handleClick = jest.fn();
+    render(<NavBar theme={'light'} handleClick={handleClick}/>);
     const navElement = screen.getByRole('navigation');
     expect(navElement).toHaveTextContent('Hacker News');
 })

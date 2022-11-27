@@ -1,144 +1,76 @@
-html, body, :root {
-    --font-family: 'Verdana', 'Geneva', sans-serif;
-    --background-color: #FFFFFF;
-    --color:#1E2025;
-    margin:0;
-    -webkit-font-smoothing: antialiased;
-    -moz-osx-font-smoothing: grayscale;
-}
-
-body {
-    background: var(--background-color);
-
-}
-
-
-[data-theme='light']  {
-    --background-color: #FFFFFF;
-    --color:#1E2025;
-}
-
-.light {
-    background: var(--background-color);
-
-}
-
-.dark {
-    background: var(--background-color);
-
-}
-
-
-
-[data-theme="dark"] {
-    --background-color: #1E2025;
-    --color: #FFFFFF;
-}
-
-html * {
-    background: var(--background-color);
-}
-
-
-
-
-
-
-
-
-.container {
-    /*display:block;*/
-    padding-left: 8em;
-    padding-right: 8em;
-    background: var(--background-color);
-
-}
-.nav {
-    align-items: center;
-    display: inline-flex;
-    gap: 1rem;
-    margin-top: 40px;
-    background: var(--background-color);
-
-}
-
 /*//TODO add top space under nav*/
 
-.content {
-    /*margin: 0em 8em;*/
-    background: var(--background-color);
+/*html, body, :root {*/
+/*    --font-family: 'Verdana', 'Geneva', sans-serif;*/
+/*    --background-color: #FFFFFF;*/
+/*    --color:#1E2025;*/
+/*    margin:0;*/
+/*    padding:0;*/
+/*    height:100vh;*/
+/*    min-height:100vh;*/
+/*    -webkit-font-smoothing: antialiased;*/
+/*    -moz-osx-font-smoothing: grayscale;*/
 
-}
+/*}*/
 
-ol {
-    /*display: inline-flex;*/
-    /*flex-direction: column;*/
-    /*margin-top: 30px;*/
-    /*gap: .5rem;*/
-}
+/*[data-theme="light"]  {*/
+/*    --background-color: #FFFFFF;*/
+/*    --color:#1E2025;*/
+/*    transition: all 0.50s linear;*/
 
-li {
-    margin-bottom:1em;
-    color: var(--color);
+/*}*/
 
+/*[data-theme="dark"] {*/
+/*    --background-color: #1E2025;*/
+/*    --color: #FFFFFF;*/
+/*    transition: all 0.50s linear;*/
 
-}
+/*}*/
 
-.article-div {
-    display:inline-flex;
-    overflow: hidden;
-    color: var(--color);
+/*body, html, html > * {*/
+/*    background: var(--background-color);*/
+/*    color:var(--color);*/
+/*    transition: all 0.50s linear;*/
 
-
-}
-.article-title {
-    display:inline-flex;
-    font-weight: bold;
-    /*font-size:larger;*/
-    color: var(--color);
-
-}
-
-.domain-url {
-    margin-left: 0.25em;
-    color:gray;
-    display:inline-flex;
-
-}
-
-a{
-    text-decoration: none;
-    color: var(--color);
-}
+/*}*/
 
 
-.nav-heading {
-    font-weight: bold;
-    /*font-size:2em;*/
-    color: var(--color);
-    margin-left:auto;
+/*body {*/
+/*    height: 100%;*/
 
-}
+/*}*/
 
-.fa-hacker-news {
-    /*background:#fff;*/
-    color: coral;
-}
-
-.theme-button {
-    border-style:none;
-    /*background-color:#FFFFFF;*/
-    position:absolute;
-    right:2em;
-    color: var(--color);
-
-    /*margin-right:auto;*/
-}
+/*.light {*/
+/*    background: var(--background-color);*/
+/*    color:var(--background-color);*/
+/*    transition: all 0.50s linear;*/
 
 
-html > {
-    /*color: #000;*/
-}
+/*}*/
+
+/*.dark {*/
+/*    background: var(--background-color);*/
+/*    color:var(--background-color);*/
+
+/*    transition: all 0.50s linear;*/
+
+
+/*}*/
+
+
+
+/*.fa-hacker-news {*/
+/*    color: coral;*/
+/*}*/
+
+
+
+/*a {*/
+/*    text-decoration: none;*/
+/*    color: var(--color);*/
+/*}*/
+
+
 
 
 

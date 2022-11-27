@@ -1,95 +1,90 @@
-import React, {Component} from "react";
+import React, {useEffect, useState} from "react";
 import axios from "axios";
 import moment from 'moment';
+import {useErrorHandler} from "react-error-boundary";
 
 
-export default class Article extends Component {
-    constructor(props) {
-        super(props);
+export const Article = (props) => {
 
-        this.state = {
-            title: null,
-            url:null,
-            score:0,
-            by:null,
-            time:null,
-            comments:0
+    const [articleInfo, setArticleInfo] = useState({
+
+        title: undefined,
+        url: null,
+        score: null,
+        by: null,
+        time: null,
+        comments: null,
+    });
+
+    const [loading, setLoading] = useState(true);
+
+    const handleError = useErrorHandler();
+
+
+
+    useEffect(() => {
+        async function getArticle(id) {
+            const baseURL = "https://hacker-news.firebaseio.com/v0/item/";
+            try {
+                const {data} = await axios.get(`${baseURL}${id}.json`);
+                return data;
+
+            } catch (error) {
+                handleError(error);
+            }
         }
-        this.getArticle = this.getArticle.bind(this);
-        this.convertURL = this.convertURL.bind(this);
-        this.convertTime = this.convertTime.bind(this);
 
-    }
+        getArticle(props.id).then(r => setArticleInfo({
+            title: r.title,
+            url: r.url,
+            score: r.score,
+            by: r.by,
+            time: r.time,
+            comments: r.descendants,
 
-    async getArticle(id) {
-        const baseURL = "https://hacker-news.firebaseio.com/v0/item/";
-        try {
-            const { data : {title, url, score, by, time, descendants} } = await axios.get(`${baseURL}${id}.json`);
-            this.setState({
-                title: title,
-                url:url,
-                score:score,
-                by:by,
-                time:time,
-                comments:descendants
-            }, function () {
-                console.log(title);
-                return {title, url, score, by, time, descendants};
-            })
+        })).catch((error) => {
+            handleError(error);
+        })
+        setLoading(false)
+
+    }, [])
 
 
-
-
-        } catch (error) {
-            console.error(error);
-        }
-    }
-
-    convertURL(url) {
-        console.log(url);
+    const convertURL = (url) => {
         const domain = url ? new URL(url).hostname : undefined;
 
-        // console.log(domain);
-        // domain = domain.hostname;
-        // return domain;
-
-        const exp = url + 'abc';
         return domain;
 
     }
 
-    convertTime(time) {
+    const convertTime = (time) => {
         const relativeTime = moment.unix(time).utc().fromNow();
         return relativeTime;
     }
 
-    componentDidMount() {
-        this.getArticle(this.props.id);
-
-    }
-
-
-    render() {
-        // const domain = this.convertURL(this.state.url);
-        return (
-            <div>
-                <li className="">
+    return (
+        <div>
+            <li className="">
                     <span className="article-div">
-                        <a className="article-title" href={this.state.url}>{this.state.title} </a>
-                        <span className="domain-url">({`${this.convertURL(this.state.url)}`})</span>
+                        <a className="article-title" href={articleInfo.url}>{articleInfo.title} </a>
+                        <span className="domain-url">({`${convertURL(articleInfo.url)}`})</span>
                     </span>
 
-                    <span>
+                <span>
 
                     </span>
-                    <div>
-                        {this.state.score} points by {this.state.by} {this.convertTime(this.state.time)} ago {this.state.comments} comments
-                    </div>
-                </li>
-            </div>
+                {!loading &&
+                <div>
+                    {articleInfo.score} {articleInfo.score === 1 ? 'point' : 'points'} by {articleInfo.by} {convertTime(articleInfo.time)} ago {articleInfo.comments} {articleInfo.comments === 1 ? 'comment' : 'comments'}
+                </div>
+                }
+            </li>
+        </div>
 
 
-        )
-    }
+    )
+
 
 }
+
+export default Article;

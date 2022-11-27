@@ -5,7 +5,9 @@ import React from "react";
 import axios from 'axios';
 
 jest.mock('axios');
-test('homepage shows list of articles',async () => {
+jest.mock('./Article');
+
+test('articles display when data is fetched',async () => {
     const idList = [
         33732969,
         33735101,
@@ -29,9 +31,19 @@ test('homepage shows list of articles',async () => {
     // await waitFor(() => expect(getByRole('ol')).toBeInTheDocument());
     // // expect(listElement).toHaveLength(13);
 
-    const { findByRole } = render(<ArticleList ids={idList}/>)
+    render(<ArticleList ids={null}/>)
     // expect(getByText('Loading...')).toBeInTheDocument()
-    expect(await (findByRole('list'))).toBeInTheDocument()
+    const list = (screen.getByRole('list'));
+
+    expect(list).toBeInTheDocument();
+})
+
+test('Error message appears when data is not fetched', async () => {
+    render(<ArticleList ids={null}/>)
+
+    const errorMessage = screen.getByTestId("error-message");
+    expect(errorMessage).toHaveTextContent('Sorry, we couldn\'t load stories');
+
 })
 
 

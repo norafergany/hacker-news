@@ -1,24 +1,24 @@
-import React, {Component} from "react";
+import React from "react";
 import Article from "./Article";
 
 
-export default class ArticleList extends Component {
-
-    render() {
+export const ArticleList = (props) => {
 
         return (
             <>
                 <div className="story-list ">
                     <ol>
-                        {this.props.ids.map((id) => <Article key={id} id={id}/>)}
+                        {props.ids?.map((id) => <Article key={id} id={id}/>)}
+
+
                     </ol>
                 </div>
             </>
         )
 
-    }
+
 
 
 }
-
+export default ArticleList;
 

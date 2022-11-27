@@ -1,32 +1,24 @@
-import React, {Component} from "react";
+import React from "react";
 import ToggleTheme from "./ToggleTheme";
 
-export default class NavBar extends Component {
+function NavBar(props) {
 
-    constructor(props) {
-        super(props);
+    const {theme, handleClick} = props;
 
-        this.handleClick = this.props.handleClick.bind(this);
+    // const NavBar = styled.nav`
+    //
+    // `
 
-    }
-
-
-
-
-
-    render() {
         return (
-
-            <nav className={`nav content ${this.props.theme === 'dark' ? "dark" : "light"}`}>
-                <div><i className="fab fa-brands fa-4x fa-hacker-news"></i></div>
-                <div><a className="navbar-brand nav-heading" href="."><h1>Hacker News</h1></a></div>
-                <ToggleTheme theme={this.props.theme} toggleTheme={this.props.toggleTheme} handleClick={this.handleClick}/>
-
-            </nav>
-
+            <header>
+                <nav className={`nav content`}>
+                    <div><i className="fab fa-brands fa-4x fa-hacker-news"></i></div>
+                    <div><a className="navbar-brand nav-heading" href="."><h1>Hacker News</h1></a></div>
+                    <ToggleTheme theme={theme} toggleTheme={handleClick}/>
+                </nav>
+            </header>
         )
-    }
-
-
 }
+
+export default NavBar;
 
