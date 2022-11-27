@@ -5,9 +5,11 @@ This project was bootstrapped with [Create React App](https://github.com/faceboo
 ## Installation
 1. In the project directory, run `npm install`
 2. Run `npm start`
+3. Add .babelrc
+4. modify package.json
 
 ## Technologies Used
-* React Bootstrap
+* styled Bootstrap
 * Jest
 * React-Testing-Library
 * Axios
