@@ -1,0 +1,40 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`matches the snapshot 1`] = `
+<div
+  className="container"
+>
+  <header>
+    <nav
+      className="my-3 navbar navbar-expand-lg navbar-light"
+    >
+      <div
+        className="container-fluid"
+      >
+        <a
+          className="navbar-brand"
+          href="."
+        >
+          <i
+            className="fa-brands fa-hacker-news fa-2x logo me-2"
+          />
+          <span
+            className="h1 link-dark"
+          >
+            Hacker News
+          </span>
+        </a>
+        <button
+          className="sc-bdVaJa liGjSw theme-button ms-auto me-1"
+          onClick={[Function]}
+        >
+          <i
+            aria-label="light-display-icon"
+            className="fa-solid fa-moon"
+          />
+        </button>
+      </div>
+    </nav>
+  </header>
+</div>
+`;
