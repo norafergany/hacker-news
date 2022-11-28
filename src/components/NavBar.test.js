@@ -2,7 +2,7 @@ import React from "react";
 import ReactDOM from 'react-dom';
 import {render, screen} from '@testing-library/react';
 import renderer from 'react-test-renderer';
-import NavBar from "./NavBar";
+import NavBar from "./Navigation";
 
 test('displays the Hacker News Nav', () => {
     const handleClick = jest.fn();

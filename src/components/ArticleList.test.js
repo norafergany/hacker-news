@@ -1,6 +1,5 @@
 import ArticleList from "./ArticleList";
 import {render, screen, waitFor} from "@testing-library/react";
-import NavBar from "./NavBar";
 import React from "react";
 import axios from 'axios';
 

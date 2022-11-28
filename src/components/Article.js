@@ -2,6 +2,8 @@ import React, {useEffect, useState} from "react";
 import axios from "axios";
 import moment from 'moment';
 import {useErrorHandler} from "react-error-boundary";
+import styled from "styled-components"
+import {Stack} from "react-bootstrap";
 
 
 export const Article = (props) => {
@@ -19,7 +21,6 @@ export const Article = (props) => {
     const [loading, setLoading] = useState(true);
 
     const handleError = useErrorHandler();
-
 
 
     useEffect(() => {
@@ -63,28 +64,34 @@ export const Article = (props) => {
     }
 
     return (
-        <div>
+        <>
             <li className="">
-                    <span className="article-div">
-                        <a className="article-title" href={articleInfo.url}>{articleInfo.title} </a>
-                        <span className="domain-url">({`${convertURL(articleInfo.url)}`})</span>
-                    </span>
+                <Stack direction="horizontal" gap={3}>
+{/*// TODO add css font styles via styled-components*/}
+                    <div>
+                        <a className="article-title me-1" href={articleInfo.url}>{articleInfo.title} </a>
+                        <a href=".">({`${convertURL(articleInfo.url)}`})</a>
 
-                <span>
+                    </div>
 
-                    </span>
+                </Stack>
+
                 {!loading &&
-                <div>
-                    {articleInfo.score} {articleInfo.score === 1 ? 'point' : 'points'} by {articleInfo.by} {convertTime(articleInfo.time)} ago {articleInfo.comments} {articleInfo.comments === 1 ? 'comment' : 'comments'}
-                </div>
+                    <div>
+                        {articleInfo.score} {articleInfo.score === 1 ? 'point' : 'points'} by {articleInfo.by} {convertTime(articleInfo.time)} | {articleInfo.comments} {articleInfo.comments === 1 ? 'comment' : 'comments'}
+                    </div>
                 }
             </li>
-        </div>
-
+        </>
 
     )
 
 
 }
+
+// const StyledArticle = styled.li`
+//     margin-bottom: 1em;
+//
+// `;
 
 export default Article;

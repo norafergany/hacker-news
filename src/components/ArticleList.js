@@ -6,13 +6,22 @@ export const ArticleList = (props) => {
 
         return (
             <>
-                <div className="story-list ">
-                    <ol>
-                        {props.ids?.map((id) => <Article key={id} id={id}/>)}
+                <div className="row">
+                    <div className="col">
+
+                        <ol>
+
+                            <div className="vstack gap-3">
+
+                            {props.ids?.map((id) =><Article key={id} id={id}/>)}
+                            </div>
 
 
-                    </ol>
+                        </ol>
+
+                    </div>
                 </div>
+
             </>
         )
 
