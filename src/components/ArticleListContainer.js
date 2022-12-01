@@ -1,9 +1,7 @@
 import ArticleList from "./ArticleList";
 import React, {useEffect, useState} from "react";
-import axios from 'axios';
+import axios, {get} from 'axios';
 import {useErrorHandler} from 'react-error-boundary'
-
-
 
 
 export const ArticleListContainer = () => {
@@ -18,9 +16,9 @@ export const ArticleListContainer = () => {
     const handleError = useErrorHandler();
 
 
-
     useEffect(() => {
-        // const allIds =  getIds('topstories');
+
+
         async function getIds(storyType) {
             const baseURL = "https://hacker-news.firebaseio.com/v0/";
             const endpoint = `${baseURL}${storyType}.json`;
@@ -36,29 +34,55 @@ export const ArticleListContainer = () => {
             }
         }
 
-        getIds(storyType).then(r => {
-            setIds(r);
-            getCurrentIds(r, start, end);
+        (async () => {
+            const ids = await getIds(storyType);
+            setIds(ids);
+            // getCurrentIds(ids, start, end);
+            setCurrentIds(ids.slice(start, end))
             setLoading(false);
+        })()
 
-        }).catch((error) => {
-            handleError(error)
-        })
-    }, []);
+    }, [])
+
+    // useEffect(() => {
+    //     // const allIds =  getIds('topstories');
+    //     async function getIds(storyType) {
+    //         const baseURL = "https://hacker-news.firebaseio.com/v0/";
+    //         const endpoint = `${baseURL}${storyType}.json`;
+    //
+    //         try {
+    //             const {data} = await axios.get(endpoint);
+    //             // const {data} = await axios.get(endpoint);
+    //
+    //             console.log(data);
+    //             return data;
+    //         } catch (error) {
+    //             handleError(error);
+    //         }
+    //     }
+    //
+    //     getIds(storyType).then(r => {
+    //         setIds(r);
+    //         getCurrentIds(r, start, end);
+    //         setLoading(false);
+    //
+    //     }).catch((error) => {
+    //         handleError(error)
+    //     })
+    // }, []);
 
 
-    const getCurrentIds = (ids, start, end) => {
-        try {
-                const currentSlice =  ids.slice(start, end);
-                console.log(currentSlice);
-                setCurrentIds(currentSlice);
-            } catch (error) {
-                console.error(error);
-                handleError(error);
-
-        }
-    }
-
+    // const getCurrentIds = (ids, start, end) => {
+    //     try {
+    //         const currentSlice = ids.slice(start, end);
+    //         console.log(currentSlice);
+    //         setCurrentIds(currentSlice);
+    //     } catch (error) {
+    //         console.error(error);
+    //         handleError(error);
+    //
+    //     }
+    // }
 
 
     const updateCurrentIds = (newIds) => {
@@ -68,9 +92,10 @@ export const ArticleListContainer = () => {
 
     return (
         <>
-                {!loading &&
+            {/*//TODO move article list in here*/}
+            {!loading &&
                 <ArticleList ids={currentIds}/>
-                }
+            }
         </>
     )
 

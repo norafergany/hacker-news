@@ -67,7 +67,9 @@ export const Article = (props) => {
         <>
             <li className="">
                 <Stack direction="horizontal" gap={3}>
-{/*// TODO add css font styles via styled-components*/}
+{/*// TODO add css font styles via styled-components
+move functions out
+*/}
                     <div>
                         <a className="article-title me-1" href={articleInfo.url}>{articleInfo.title} </a>
                         <a href=".">({`${convertURL(articleInfo.url)}`})</a>
