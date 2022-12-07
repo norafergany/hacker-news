@@ -2,8 +2,8 @@ import React, {useEffect, useState} from "react";
 import Container from 'react-bootstrap/Container';
 import {ErrorBoundary} from "react-error-boundary";
 import {ThemeProvider} from "styled-components";
-import {GlobalStyles} from "./components/GlobalStyles";
-import {darkTheme, lightTheme} from "./components/Themes";
+import {GlobalStyles} from "./themes/GlobalStyles";
+import {darkTheme, lightTheme} from "./themes/Themes";
 import Navigation from "./components/Navigation";
 import ArticleListContainer from "./components/ArticleListContainer";
 
