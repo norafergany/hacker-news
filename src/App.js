@@ -1,27 +1,21 @@
 import React, {useEffect, useState} from "react";
 import Container from 'react-bootstrap/Container';
-// import bootstrap from 'bootstrap'
-
 import {ErrorBoundary} from "react-error-boundary";
 import {ThemeProvider} from "styled-components";
 import {GlobalStyles} from "./components/GlobalStyles";
 import {darkTheme, lightTheme} from "./components/Themes";
-import "./App.css";
 import Navigation from "./components/Navigation";
 import ArticleListContainer from "./components/ArticleListContainer";
-
 
 
 export const App = () => {
 
     const [theme, setTheme] = useState('light');
 
-
     const toggleTheme = (theme) => {
         const newTheme = theme === 'light' ? 'dark' : 'light';
         setTheme(newTheme);
         localStorage.setItem('theme', newTheme);
-
     }
 
     const errorFallback = ({error, resetErrorBoundary}) => {
@@ -45,14 +39,11 @@ export const App = () => {
             }
             const initialTheme = storedTheme;
 
-            // const storedTheme = localStorage.getItem('theme') || (window.matchMedia("(prefers-color-scheme: dark)").matches ? "dark" : "light");
             setTheme(initialTheme);
             localStorage.setItem('theme', initialTheme);
         }
 
         getInitialTheme();
-        // const initialTheme = storedTheme ? storedTheme : theme;
-        // localStorage.setItem('theme', initialTheme);
 
     }, [])
 
@@ -62,21 +53,14 @@ export const App = () => {
                 <>
                     <GlobalStyles/>
                     <Container>
-                       <Navigation theme={theme} handleClick={() => toggleTheme(theme)}/>
-
-                            <ErrorBoundary FallbackComponent={errorFallback}>
-
-                                <ArticleListContainer/>
-
-                            </ErrorBoundary>
-
-
+                        <Navigation theme={theme} handleClick={() => toggleTheme(theme)}/>
+                        <ErrorBoundary FallbackComponent={errorFallback}>
+                            <ArticleListContainer/>
+                        </ErrorBoundary>
                     </Container>
-
                 </>
             </ThemeProvider>
         </>
-
     );
 }
 

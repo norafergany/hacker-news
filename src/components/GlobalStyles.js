@@ -5,7 +5,7 @@ export const GlobalStyles = createGlobalStyle`
   body {
     font-family: 'Verdana', 'Geneva',
     sans-serif;
-    font-size:100%;
+    font-size: 100%;
     background: ${({theme}) => theme.body};
     color: ${({theme}) => theme.text};
     -webkit-font-smoothing: antialiased;
@@ -24,8 +24,7 @@ export const GlobalStyles = createGlobalStyle`
     font-family: source-code-pro, Menlo, Monaco, Consolas, 'Courier New',
     monospace;
   }
-  
-  
+
 
   a {
     text-decoration: none;
@@ -34,39 +33,18 @@ export const GlobalStyles = createGlobalStyle`
   }
 
   i.logo::before {
-    color:coral;
+    color: coral;
     background: radial-gradient(white 50%, transparent 50%);
-    //background-color: #FFFFFF;
 
 
   }
 
- 
+  li {
+    counter-increment: li;
+  }
 
-  //li {
-  //  margin-bottom: 1em;
-  //  /*color: var(--color);*/
-  //}
-
-  //.article-div {
-  //  display: inline-flex;
-  //  overflow: hidden;
-  //  /*color: var(--color);*/
-  //}
-  //
-  //.article-title {
-  //  display: inline-flex;
-  //  font-weight: bold;
-  //  /*font-size:larger;*/
-  //  /*color: var(--color);*/
-  //
-  //}
-  //
-  //.domain-url {
-  //  margin-left: 0.25em;
-  //  color: gray;
-  //  display: inline-flex;
-  //
-  //}
+  li::marker {
+    content: counter(li) ". ";
+  }
 
 `

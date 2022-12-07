@@ -40,37 +40,27 @@ export const Article = (props) => {
             url: r.url,
             score: r.score,
             by: r.by,
-            time: r.time,
+            time: moment.unix(r.time).utc().fromNow(),
             comments: r.descendants,
+            domain: r.url ? new URL(r.url).hostname : undefined
 
         })).catch((error) => {
             handleError(error);
         })
         setLoading(false)
 
-    }, [])
+    }, [handleError, props.id])
 
-
-    const convertURL = (url) => {
-        const domain = url ? new URL(url).hostname : undefined;
-
-        return domain;
-
-    }
-
-    const convertTime = (time) => {
-        const relativeTime = moment.unix(time).utc().fromNow();
-        return relativeTime;
-    }
 
     return (
         <>
-            <li className="">
+            <li>
+                <div>
                 <Stack direction="horizontal" gap={3}>
 {/*// TODO add css font styles via styled-components*/}
-                    <div>
+                    <div className="list-item">
                         <a className="article-title me-1" href={articleInfo.url}>{articleInfo.title} </a>
-                        <a href=".">({`${convertURL(articleInfo.url)}`})</a>
+                        <a href=".">{articleInfo.domain}</a>
 
                     </div>
 
@@ -78,9 +68,11 @@ export const Article = (props) => {
 
                 {!loading &&
                     <div>
-                        {articleInfo.score} {articleInfo.score === 1 ? 'point' : 'points'} by {articleInfo.by} {convertTime(articleInfo.time)} | {articleInfo.comments} {articleInfo.comments === 1 ? 'comment' : 'comments'}
+                        {articleInfo.score} {articleInfo.score === 1 ? 'point' : 'points'} by {articleInfo.by} {articleInfo.time} | {articleInfo.comments} {articleInfo.comments === 1 ? 'comment' : 'comments'}
                     </div>
                 }
+                </div>
+
             </li>
         </>
 

@@ -1,9 +1,8 @@
-import ArticleList from "./ArticleList";
 import React, {useEffect, useState} from "react";
 import axios from 'axios';
 import {useErrorHandler} from 'react-error-boundary'
-
-
+import Article from "./Article";
+import {Button, Col, Row, Stack} from "react-bootstrap";
 
 
 export const ArticleListContainer = () => {
@@ -18,7 +17,6 @@ export const ArticleListContainer = () => {
     const handleError = useErrorHandler();
 
 
-
     useEffect(() => {
         // const allIds =  getIds('topstories');
         async function getIds(storyType) {
@@ -27,9 +25,6 @@ export const ArticleListContainer = () => {
 
             try {
                 const {data} = await axios.get(endpoint);
-                // const {data} = await axios.get(endpoint);
-
-                console.log(data);
                 return data;
             } catch (error) {
                 handleError(error);
@@ -38,39 +33,41 @@ export const ArticleListContainer = () => {
 
         getIds(storyType).then(r => {
             setIds(r);
-            getCurrentIds(r, start, end);
+            const currentSlice = r.slice(start, end);
+            setCurrentIds(currentSlice);
             setLoading(false);
-
         }).catch((error) => {
             handleError(error)
         })
-    }, []);
+        // TODO this didn't work before I added currentIds to the dependency array
+    }, [handleError, storyType, currentIds, start, end]);
 
 
-    const getCurrentIds = (ids, start, end) => {
-        try {
-                const currentSlice =  ids.slice(start, end);
-                console.log(currentSlice);
-                setCurrentIds(currentSlice);
-            } catch (error) {
-                console.error(error);
-                handleError(error);
-
-        }
-    }
-
-
-
-    const updateCurrentIds = (newIds) => {
-        setCurrentIds(newIds)
+    const getCurrentIds = () => {
+        setStart(start + 13)
+        setEnd(end + 13)
+        setCurrentIds(ids.slice(start, end));
     }
 
 
     return (
         <>
-                {!loading &&
-                <ArticleList ids={currentIds}/>
-                }
+            {!loading &&
+                <>
+                    <Row>
+                        <Col>
+                            <div className="my-list">
+                                <ol style={{"counterReset": `li ${start}`}}>
+                                    <Stack gap={3}>
+                                        {currentIds?.map((id) => <Article key={id} id={id}/>)}
+                                    </Stack>
+                                </ol>
+                            </div>
+                        </Col>
+                    </Row>
+                    <Button onClick={getCurrentIds}>Show More</Button>
+                </>
+            }
         </>
     )
 
