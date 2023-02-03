@@ -54,9 +54,12 @@ export const Article = (props) => {
 
     return (
         <>
+        {!loading &&
+
             <li>
                 <div>
-                <Stack direction="horizontal" gap={3}>
+
+                        <Stack direction="horizontal" gap={3}>
 {/*// TODO add css font styles via styled-components*/}
                     <div className="list-item">
                         <a className="article-title me-1" href={articleInfo.url}>{articleInfo.title} </a>
@@ -66,14 +69,14 @@ export const Article = (props) => {
 
                 </Stack>
 
-                {!loading &&
                     <div>
                         {articleInfo.score} {articleInfo.score === 1 ? 'point' : 'points'} by {articleInfo.by} {articleInfo.time} | {articleInfo.comments} {articleInfo.comments === 1 ? 'comment' : 'comments'}
                     </div>
-                }
                 </div>
 
+
             </li>
+        }
         </>
 
     )
